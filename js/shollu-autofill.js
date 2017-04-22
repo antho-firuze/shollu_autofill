@@ -23,8 +23,19 @@
 							case "email":
 							case "number":
 							case "password":
-							case "textarea":
 								form[i].value = v;
+								break;
+							case "textarea":
+								if (typeof(tinyMCE) !== 'undefined') {
+									if (tinyMCE.get(field_id)){
+										var id_tmp = field_id, val = v;
+										setTimeout(function(){
+											tinyMCE.get(id_tmp).setContent(val);
+										}, 500);
+									} 
+								} else {
+									form[i].value = v;
+								}
 								break;
 							case "hidden":
 								if (field_id == field_name) {
@@ -56,7 +67,7 @@
 										$(form[i]).iCheck('uncheck') 
 									}
 								} else {
-									form[i].checked = (v)?true:false;
+									form[i].checked = parseInt(v) ? true : false;
 								}
 								break;
 							case "select-one":
