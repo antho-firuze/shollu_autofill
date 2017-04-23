@@ -26,13 +26,15 @@
 								form[i].value = v;
 								break;
 							case "textarea":
-								if (typeof(tinyMCE) !== 'undefined') {
+								if ($(form[i]).hasClass('tinymce') && typeof(tinyMCE) !== 'undefined') {
 									if (tinyMCE.get(field_id)){
 										var id_tmp = field_id, val = v;
 										setTimeout(function(){
 											tinyMCE.get(id_tmp).setContent(val);
 										}, 500);
 									} 
+								} else if ($(form[i]).hasClass('summernote') && jQuery().summernote){
+									$(form[i]).summernote('code', v);
 								} else {
 									form[i].value = v;
 								}
